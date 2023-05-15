@@ -5,3 +5,5 @@
 3. npm test (for testing)
 
 <!-- If you clone the project, run the npm install command before starting the application with npm start or npm run dev. -->
+
+<!-- npm update - for updating the dependencies of the project -->
