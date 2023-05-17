@@ -18,7 +18,7 @@ npm update - for updating the dependencies of the project
 
 ### Commands for creating build folder and copy it to the backend
 
-"build:ui": "rm -rf build && cd ../Frontend && npm run build && cp -r build ../Backend",
+"build:ui": "rm -rf build && cd ../Frontend && npm run build && cp -r build ../Backend",\
 "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
 
 Q: "rm -rf build && cd ../Frontend && npm run build && cp -r build ../Backend",
