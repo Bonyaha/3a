@@ -16,7 +16,8 @@ npm update - for updating the dependencies of the project
 4. npm install //install its dependencies
 5. npm start
 
-#Commands for creating build folder and copy it to the backend
+# Commands for creating build folder and copy it to the backend
+
 "build:ui": "rm -rf build && cd ../Frontend && npm run build && cp -r build ../Backend",
 "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
 
@@ -34,4 +35,4 @@ A: Let's break down the command step by step:
 
 In summary, this command sequence removes the existing `build` folder from the backend, builds the frontend by running the `build` script in the frontend repository, and then copies the generated `build` folder to the backend directory. This allows you to automate the process of creating a production build of the frontend and integrating it with the backend without requiring manual steps.
 
-##the second command (npm run deploy:full) run the first one and commit it to remote git repo
+## the second command (npm run deploy:full) run the first one and commit it to remote git repo
