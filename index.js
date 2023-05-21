@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const mongoose = require('mongoose')
 const Note = require('./models/note')
 
 app.use(express.static('build')) //To make express show static content, the page index.html
