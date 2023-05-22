@@ -8,3 +8,6 @@ content-type: application/json
     "content": "sample2",
     "time": "Mon, 15 May 2023 18:27:50 GMT"
 }
+
+###
+DELETE http://localhost:3001/api/notes/6469fb184988cc39ae2cf103
