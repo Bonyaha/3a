@@ -50,9 +50,7 @@ app.post('/api/notes', (request, response) => {
   const body = request.body
   //console.log(note)
   if (!body.content) {
-    return response.status(400).json({
-      error: 'content is missing',
-    })
+    return response.status(400).json({ error: 'content is missing' })
   }
   const note = new Note({
     content: body.content,
