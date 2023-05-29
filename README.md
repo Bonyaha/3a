@@ -4,6 +4,7 @@
 2. npm run dev (start with nodemon for restarting it when changes are made)
 3. npm test (for testing)
 4. npm run lint(for running linting)
+
    If you clone the project, run the npm install command before starting the application with npm start or npm run dev.
 
 npm update - for updating the dependencies of the project
@@ -37,8 +38,13 @@ In summary, this command sequence removes the existing `build` folder from the b
 
 ### the second command (npm run deploy:full) run the first one and commit it to remote git repo
 
-node mongo.js password - command for interacting with the database (instead 'password' word paste your password from mongo db)
+node mongo.js password - command for interacting with the database with mongo.js file(instead 'password' word paste your password from mongo db)
 
 MongoDb:
 url for connection:
 mongodb+srv://Roman:`<password>`@cluster1.d7mltpu.mongodb.net/?retryWrites=true&w=majority (Replace `<password>` with the password for the Roman user)
+
+### Testing
+
+The following command only runs the tests found in the tests/note_api.test.js file:npm test -- tests/note_api.test.js
+The -t option can be used for running tests with a specific name:npm test -- -t "a specific note is within the returned notes"
