@@ -5,7 +5,7 @@ POST http://localhost:3001/api/notes/ HTTP/1.1
 content-type: application/json
 
 {
-    "content": "Mongoose is cool",
+    
     "important": true,
     "userId":"6479cb2ea17e33236fafd4aa"
 }
