@@ -10,10 +10,8 @@ const userSchema = new mongoose.Schema({
     match: /^[a-zA-Z0-9_]+$/, // Only alphanumeric characters and underscores allowed
   },
   name: String,
-  passwordHash: {
-    type: String,
-    required: true,
-  },
+  passwordHash: String,
+
   notes: [
     {
       type: mongoose.Schema.Types.ObjectId,
