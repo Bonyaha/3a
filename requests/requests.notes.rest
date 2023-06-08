@@ -3,16 +3,17 @@ GET http://localhost:3001/api/notes/
 ###
 POST http://localhost:3001/api/notes/ HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJpZCI6IjY0NzljYjJlYTE3ZTMzMjM2ZmFmZDRhYSIsImlhdCI6MTY4NTg5MjAxN30.5YtldQ-4g7d0myxm-9LZikaC71fxcPJtXBzPhuQk92M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJpZCI6IjY0N2RkMzA3ZDMzODVlYzc2ZGQ3OGYyNCIsImlhdCI6MTY4NjIyNzk4MiwiZXhwIjoxNjg2MjMxNTgyfQ.ClxRnom45U6xTPCahktMAV96N0aESme1mplObpUuGaE
 
 {
-    "content": "test1",
+    "content": "Mongoose is cool",
     "important": true
     
 }
 
 ###
 DELETE http://localhost:3001/api/notes/6469fb184988cc39ae2cf103
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRlc3QiLCJpZCI6IjY0N2RkMzA3ZDMzODVlYzc2ZGQ3OGYyNCIsImlhdCI6MTY4NjIyNzk4MiwiZXhwIjoxNjg2MjMxNTgyfQ.ClxRnom45U6xTPCahktMAV96N0aESme1mplObpUuGaE
 
 ###
 PUT http://localhost:3001/api/notes/646769df7807db59c6152e52 HTTP/1.1
