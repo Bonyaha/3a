@@ -9,9 +9,16 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const Note = require('../models/note')
 
+let user
 beforeEach(async () => {
   await Note.deleteMany({})
   await Note.insertMany(helper.initialNotes)
+  await User.deleteMany({})
+
+  const passwordHash = await bcrypt.hash('sekret', 10)
+  user = new User({ username: 'root', passwordHash })
+
+  await user.save()
 })
 
 describe('when there is initially some notes saved', () => {
@@ -65,7 +72,7 @@ describe('addition of a new note', () => {
     const newNote = {
       content: 'async/await simplifies making async calls',
       important: true,
-      userId: '6479f9ed9760114ad835b400',
+      userId: user.id,
     }
 
     await api
@@ -83,7 +90,7 @@ describe('addition of a new note', () => {
   test('fails with status code 400 if data invalid', async () => {
     const newNote = {
       important: true,
-      userId: '6479f9ed9760114ad835b400',
+      userId: user.id,
     }
 
     await api.post('/api/notes').send(newNote).expect(400)
@@ -113,14 +120,14 @@ describe('deletion of a note', () => {
 /* UserDB tests */
 
 describe('when there is initially one user in db', () => {
-  beforeEach(async () => {
+  /*   beforeEach(async () => {
     await User.deleteMany({})
 
     const passwordHash = await bcrypt.hash('sekret', 10)
     const user = new User({ username: 'root', passwordHash })
 
     await user.save()
-  })
+  }) */
 
   test('creation succeeds with a fresh username', async () => {
     const usersAtStart = await helper.usersInDb()
