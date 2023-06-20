@@ -5,13 +5,39 @@ const app = require('../app')
 
 const api = supertest(app)
 
-const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const Note = require('../models/note')
 
+const loginWithTestUser = async () => {
+  const credentials = {
+    username: helper.user.username,
+    password: helper.user.password,
+  }
+  const response = await api
+    .post('/api/login')
+    .send(credentials)
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  return response.body.token
+}
+
 beforeEach(async () => {
   await Note.deleteMany({})
-  await Note.insertMany(helper.initialNotes)
+  await User.deleteMany({})
+
+  const result = await api.post('/api/users').send({
+    username: helper.user.username,
+    name: helper.user.name,
+    password: helper.user.password,
+  })
+
+  const userId = result.body.id
+  const notes = helper.initialNotes.map((note) => ({
+    ...note,
+    user: userId,
+  }))
+  await Note.insertMany(notes)
 })
 
 describe('when there is initially some notes saved', () => {
@@ -41,11 +67,15 @@ describe('viewing a specific note', () => {
     const notesAtStart = await helper.notesInDb()
 
     const noteToView = notesAtStart[0]
+    noteToView.user = noteToView.user.toString()
+    console.log('noteToView is ', noteToView)
 
     const resultNote = await api
       .get(`/api/notes/${noteToView.id}`)
       .expect(200)
       .expect('Content-Type', /application\/json/)
+
+    console.log('resultNote.body ', resultNote.body)
     expect(resultNote.body).toEqual(noteToView)
   })
   test('fails with statuscode 404 if note does not exist', async () => {
@@ -65,11 +95,13 @@ describe('addition of a new note', () => {
     const newNote = {
       content: 'async/await simplifies making async calls',
       important: true,
-      userId: '6479f9ed9760114ad835b400',
     }
+
+    const token = await loginWithTestUser()
 
     await api
       .post('/api/notes')
+      .set('Authorization', `Bearer ${token}`)
       .send(newNote)
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -83,7 +115,6 @@ describe('addition of a new note', () => {
   test('fails with status code 400 if data invalid', async () => {
     const newNote = {
       important: true,
-      userId: '6479f9ed9760114ad835b400',
     }
 
     await api.post('/api/notes').send(newNote).expect(400)
@@ -113,15 +144,6 @@ describe('deletion of a note', () => {
 /* UserDB tests */
 
 describe('when there is initially one user in db', () => {
-  beforeEach(async () => {
-    await User.deleteMany({})
-
-    const passwordHash = await bcrypt.hash('sekret', 10)
-    const user = new User({ username: 'root', passwordHash })
-
-    await user.save()
-  })
-
   test('creation succeeds with a fresh username', async () => {
     const usersAtStart = await helper.usersInDb()
 
