@@ -10,7 +10,7 @@
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
     "lint": "eslint .",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
-    "start:test": "NODE_ENV=test node index.js"
+    "start:test": "cross-env NODE_ENV=test node index.js"
   },
   "author": "Roman",
   "license": "MIT",
