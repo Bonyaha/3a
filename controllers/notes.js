@@ -11,6 +11,23 @@ const getTokenFrom = (request) => {
   return null
 }
 
+/* const userExtractor = async (request) => {
+  const token = getTokenFrom(request)
+  console.log('request.token is', token)
+  if (!token) {
+    console.log('token missing')
+  }
+
+  const decodedToken = await jwt.verify(token, process.env.SECRET) //return object
+
+  if (!decodedToken.id) {
+    console.log('no token object')
+    return response.status(401).json({ error: 'token invalid' })
+  }
+  request.user = await User.findById(decodedToken.id)
+  return request.user
+} */
+
 notesRouter.get('/', async (request, response) => {
   const notes = await Note.find({}).populate('user', { username: 1, name: 1 })
   response.json(notes)
@@ -50,9 +67,18 @@ notesRouter.post('/', async (request, response) => {
 })
 
 notesRouter.delete('/:id', async (request, response) => {
-  await Note.findByIdAndRemove(request.params.id)
 
-  response.status(204).end()
+  //const user = await userExtractor(request)
+  //console.log('user is', user)
+
+  await Note.findByIdAndRemove(request.params.id)
+  /* console.log('request.params.id', request.params.id)
+  console.log('user.notes[0].toString()', user.notes[0].toString())
+  console.log(user.notes[0].toString() === request.params.id)
+  user.notes = user.notes.filter(n => n.toString() !== request.params.id)
+  await user.save() */
+
+  return response.status(204).end()
 })
 
 notesRouter.put('/:id', async (request, response) => {
