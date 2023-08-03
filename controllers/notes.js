@@ -11,7 +11,7 @@ const getTokenFrom = (request) => {
   return null
 }
 
-/* const userExtractor = async (request) => {
+const userExtractor = async (request) => {
   const token = getTokenFrom(request)
   console.log('request.token is', token)
   if (!token) {
@@ -26,7 +26,7 @@ const getTokenFrom = (request) => {
   }
   request.user = await User.findById(decodedToken.id)
   return request.user
-} */
+}
 
 notesRouter.get('/', async (request, response) => {
   const notes = await Note.find({}).populate('user', { username: 1, name: 1 })
@@ -68,15 +68,15 @@ notesRouter.post('/', async (request, response) => {
 
 notesRouter.delete('/:id', async (request, response) => {
 
-  //const user = await userExtractor(request)
-  //console.log('user is', user)
+  const user = await userExtractor(request)
+  console.log('user is', user)
 
   await Note.findByIdAndRemove(request.params.id)
-  /* console.log('request.params.id', request.params.id)
+  console.log('request.params.id', request.params.id)
   console.log('user.notes[0].toString()', user.notes[0].toString())
   console.log(user.notes[0].toString() === request.params.id)
   user.notes = user.notes.filter(n => n.toString() !== request.params.id)
-  await user.save() */
+  await user.save()
 
   return response.status(204).end()
 })
