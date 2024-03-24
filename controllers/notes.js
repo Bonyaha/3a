@@ -11,7 +11,7 @@ const getTokenFrom = (request) => {
   return null
 }
 
-const userExtractor = async (request) => {
+const userExtractor = async (request, response) => {
   const token = getTokenFrom(request)
   console.log('request.token is', token)
   if (!token) {
